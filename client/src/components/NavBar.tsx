@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
                     Log me out
                 </button>
 
-                <a><Link to={"https://github.com/Creewie"}>stolen by Creewie</Link></a>
+                <a><Link to={"https://github.com/Creewie"}>by Creewie</Link></a>
             </nav>
         </nav>
     )
