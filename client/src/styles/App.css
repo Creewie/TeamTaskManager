@@ -1,0 +1,370 @@
+:root {
+  --primary: #1E3F20;
+  --second: #273020;
+  --third: #031D44;
+  --fourth: #345830;
+  --fifth: #ff003f;
+  --sixth: #ECE4B7;
+  --seventh: #192714;
+  --eigth: #142314;
+  --link: #772fdb;
+  --link-hover: #6a00ff;
+  --nav-link: #ECE4B7;
+  --nav-link-hover: #ffed7d;
+  --model-name: #ffc9a1;
+  --submodel-name: #be9678;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body{
+  background: var(--primary);
+}
+
+a{
+  color: var(--link);
+  font-weight: 500;
+  text-decoration: none;
+  text-shadow: black 1px 1px 2px;
+  transition-duration: .2s;
+}
+
+a:hover{
+  color: var(--link-hover);
+  font-weight: 500;
+  text-decoration: none;
+  text-shadow: var(--link) 0 0 2px;
+  transition-duration: .2s;
+}
+
+button{
+  border-radius: 10px;
+  border: 0;
+  background: var(--sixth);
+  color: var(--second);
+  transition-duration: .2s;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+button:hover{
+  border-radius: 10px;
+  border: 0;
+  box-shadow: var(--sixth) 0 0 3px;
+  background: var(--sixth);
+  color: var(--fifth);
+  transition-duration: .2s;
+  cursor: pointer;
+}
+
+input{
+  margin: 10px;
+  height: 25px;
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background: var(--second);
+}
+
+select{
+  margin: 10px 0;
+  height: 50px;
+  width: 320px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background: var(--second);
+}
+
+textarea{
+  margin: 10px 0;
+  height: 50px;
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 0;
+  background: var(--second);
+}
+
+button{
+  margin: 10px;
+  height: 50px;
+  width: 320px;
+  padding: 10px;
+}
+
+h1{
+  font-size: 40px;
+  margin: 10px;
+  color: var(--sixth);
+}
+
+p{
+  color: var(--sixth);
+}
+
+.Layout-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.NavBar-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 20vw;
+}
+
+.NavBar-panel{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 15vw;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, .2) 5px 5px 25px;
+  background: var(--second);
+}
+
+.NavBar-container a{
+  margin: 15px;
+  font-size: 20px;
+  color: var(--nav-link);
+  transition-duration: .2s;
+}
+
+.NavBar-container a:hover{
+  margin: 15px;
+  font-size: 20px;
+  color: var(--nav-link-hover);
+  text-shadow: var(--nav-link-hover) 0 0 1px;
+  transition-duration: .2s;
+}
+
+.NavBar-container h1{
+  font-size: 40px;
+  margin: 100px 0;
+}
+
+.NavBar-container p{
+  margin: 100px 0;
+}
+
+.Page-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 90vw;
+}
+
+.Page-panel{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 80vw;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, .2) 5px 5px 25px;
+  background: var(--seventh);
+}
+
+ul{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  height: 60%;
+}
+
+li{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: end;
+  background-color: var(--eigth);
+  width: 90%;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, .2) 5px 5px 25px;
+}
+
+ul h6{
+  color: var(--model-name);
+  display: inline;
+  font-size: 25px;
+  margin: 0 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+ul h5{
+  color: var(--submodel-name);
+  display: inline;
+  font-size: 20px;
+  margin: 0 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.Auth-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--fourth);
+  padding: 25px 75px 25px 75px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, .2) 5px 5px 25px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#dashboard-h1{
+  margin: 125px 0 25px 0;
+}
+
+.Dashboard-container{
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.Dashboard-columns{
+  height: 60%;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Dashboard-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+.Dashboard-column li{
+  color: var(--model-name);
+  font-weight: 600;
+  width: 80%;
+}
+
+.Dashboard-column ul{
+  width: 80%;
+}
+
+.Kanban-container{
+  height: 60%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kanban-board{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+  text-align: center;
+}
+
+.kanban-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 150px;
+  margin: 0 10px;
+  background-color: var(--eigth);
+  box-shadow: rgba(0, 0, 0, .2) 5px 5px 25px;
+  border-radius: 10px;
+}
+
+.kanban-task{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, .2) 5px 5px 25px;
+  border-radius: 5px;
+  padding: 5px 0;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.kanban-task.to-do{
+  background-color: var(--sixth);
+}
+
+.kanban-task.in-progress{
+  background-color: var(--third);
+}
+
+.kanban-task.done{
+  background-color: var(--fifth);
+}
+
+.kanban-task.low{
+  color: #00ff0d;
+  text-shadow: rgba(71, 255, 0, 0.2) 5px 5px 25px;
+}
+
+.kanban-task.medium{
+  color: #ffae00;
+  text-shadow: rgba(255, 153, 0, 0.2) 5px 5px 25px;
+}
+
+.kanban-task.high{
+  color: var(--fifth);
+  text-shadow: rgba(255, 0, 0, 0.2) 5px 5px 25px;
+}
+
+h2, h3{
+  color: var(--sixth);
+}
+
+.Page-header{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+}
+
+.add-button{
+  width: 100px;
+  position: absolute;
+  top: 17.2%;
+  right: 100px;
+}
+
+.Page-header h1{
+  margin-left: auto;
+  margin-right: auto;
+}
