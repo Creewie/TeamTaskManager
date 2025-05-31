@@ -43,7 +43,7 @@ const RegisterPage : React.FC = () => {
 
     return(
         <div className={"Auth-container"}>
-            <h1>SkyWorker</h1>
+            <h1>Mrugacz Project</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     id={"registerPage-name"}

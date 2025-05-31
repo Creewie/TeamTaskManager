@@ -260,23 +260,23 @@ li h5 {
 
 /* Przycisk dodawania */
 .add-button {
-  position: fixed;
-  top: 20px;
-  right: 40px;
-  z-index: 100;
   background-color: var(--sixth);
   color: var(--white);
   border: none;
   padding: 12px 20px;
   border-radius: 10px;
   font-weight: bold;
-  box-shadow: var(--sixth) 0 0 5px;
+  font-size: 16px;
+  cursor: pointer;
   transition: all 0.2s ease-in-out;
+  margin-top: 20px;
+  align-self: center; /* wyśrodkowuje przycisk w divie */
 }
 
 .add-button:hover {
   background-color: var(--fifth);
   transform: scale(1.05);
+  box-shadow: var(--sixth) 0 0 5px;
 }
 
 /* --------------------------------------------------
@@ -345,26 +345,18 @@ li h5 {
   transform: scale(1.02);
 }
 
+/* Kolory tekstu w zależności od statusu */
 .kanban-task.to-do {
-  background-color: var(--sixth);
+  color: #ff79c6; /* czerwony (różowy) */
+  background-color: #3a1d38; /* ciemno-fioletowy */
 }
 
 .kanban-task.in-progress {
-  background-color: var(--fifth);
+  color: var(--gray); /* szary */
+  background-color: #323842; /* neutralny szary */
 }
 
 .kanban-task.done {
-  background-color: var(--seventh);
-}
-
-.kanban-task.low {
-  background-color: #4cd137;
-}
-
-.kanban-task.medium {
-  background-color: #fbc531;
-}
-
-.kanban-task.high {
-  background-color: #e74c3c;
+  color: #4cd137; /* zielony */
+  background-color: #2e4b3a; /* ciemno-zielony */
 }
