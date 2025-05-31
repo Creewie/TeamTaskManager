@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
     return (
         <nav className={"NavBar-container"}>
             <nav className={"NavBar-panel"}>
-                <h1>SkyWorker</h1>
+                <h1>Mrugacz Project</h1>
                 <Link to='/dashboard'>My dashboard</Link>
                 <Link to='/teams'>Teams</Link>
                 <Link to='/projects'>Projects</Link>
@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
                     Log me out
                 </button>
 
-                <p><Link to={"https://github.com/szpadelinho"}>by szpadelinho</Link></p>
+                <a><Link to={"https://github.com/Creewie"}>stolen by Creewie</Link></a>
             </nav>
         </nav>
     )
