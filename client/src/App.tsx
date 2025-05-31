@@ -37,6 +37,9 @@ const App: React.FC = () => {
                     <Route path="/tasks/new" element={<CreateTasksPage/>}/>
                     <Route path="comments" element={<CommentsPage/>}/>
                     <Route path="/comments/new" element={<CreateCommentsPage/>}/>
+                    <Route path="/projects/:id/edit" element={<CreateProjectsPage />} />
+                    <Route path="/tasks/:id/edit" element={<CreateTasksPage />} />
+                    <Route path="/comments/:id/edit" element={<CreateCommentsPage />} />
                 </Route>
             </Route>
         </Routes>
