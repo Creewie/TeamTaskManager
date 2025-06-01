@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import "../styles/App.css"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import SuccessModal from "./SuccessModal"
 
 const CreateCommentsPage: React.FC = () => {
     const [text, setText] = useState('')
@@ -9,27 +10,24 @@ const CreateCommentsPage: React.FC = () => {
     const [tasks, setTasks] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const [showSuccess, setShowSuccess] = useState(false)
 
     const navigate = useNavigate()
 
-    // Pobierz zadania użytkownika
     useEffect(() => {
         const fetchUserTasks = async () => {
             try {
                 const token = localStorage.getItem("jwtToken")
                 if (!token) throw new Error("Brak tokenu")
 
-                // Dekoduj payload JWT
-                const payload = JSON.parse(atob(token.split('.')[1]))
+                const payload = JSON.parse(atob(token.split(".")[1]))
                 const userId = payload.id || payload._id || payload.userId
                 if (!userId) throw new Error("Brak ID użytkownika w tokenie")
 
-                // Pobierz zadania
                 const res = await axios.get("http://localhost:5000/api/tasks", {
                     headers: { Authorization: `Bearer ${token}` }
                 })
 
-                // Filtruj zadania dla użytkownika
                 const userTasks = res.data.filter((t: any) =>
                     t.user?._id === userId || t.user?.toString() === userId
                 )
@@ -80,10 +78,13 @@ const CreateCommentsPage: React.FC = () => {
                 }
             )
 
-            alert("Komentarz został dodany!")
+            setShowSuccess(true)
 
-            // Przejdź do listy komentarzy
-            navigate("/comments")
+            setTimeout(() => {
+                setShowSuccess(false)
+                navigate("/comments")
+            }, 2000)
+
         } catch (err) {
             console.error("Błąd przy tworzeniu komentarza:", err)
             alert("Nie udało się dodać komentarza.")
@@ -94,10 +95,10 @@ const CreateCommentsPage: React.FC = () => {
         <div className="Page-container">
             <div className="Page-panel">
                 <div className="Auth-container">
-                    <h1>Comment creation</h1>
+                    <h1>Tworzenie komentarza</h1>
 
                     {loading ? (
-                        <p>Loading tasks...</p>
+                        <p>Ładowanie zadań...</p>
                     ) : error ? (
                         <p style={{ color: "red" }}>{error}</p>
                     ) : (
@@ -105,7 +106,7 @@ const CreateCommentsPage: React.FC = () => {
                             <textarea
                                 value={text}
                                 onChange={(e) => setText(e.target.value)}
-                                placeholder="Comment text"
+                                placeholder="Treść komentarza..."
                                 required
                                 style={{
                                     width: "100%",
@@ -132,7 +133,7 @@ const CreateCommentsPage: React.FC = () => {
                                     color: "white"
                                 }}
                             >
-                                <option value="">Select task</option>
+                                <option value="">Wybierz zadanie</option>
                                 {tasks.map((t) => (
                                     <option key={t._id} value={t._id}>
                                         {t.name}
@@ -140,15 +141,22 @@ const CreateCommentsPage: React.FC = () => {
                                 ))}
                             </select>
 
-                            <button type="submit">Create Comment</button>
+                            <button type="submit">Zamieść komentarz</button>
                         </form>
                     )}
 
                     {!loading && tasks.length === 0 && !error && (
-                        <p>You don't have any tasks assigned.</p>
+                        <p>Nie masz żadnych zadań.</p>
                     )}
                 </div>
             </div>
+
+            {/* Modal sukcesu */}
+            <SuccessModal
+                show={showSuccess}
+                message="Komentarz został dodany!"
+                onClose={() => setShowSuccess(false)}
+            />
         </div>
     )
 }

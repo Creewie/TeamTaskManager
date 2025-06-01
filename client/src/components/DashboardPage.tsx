@@ -83,7 +83,7 @@ const DashboardPage: React.FC = () => {
                 }
             }
 
-            fetchData()
+            fetchData().then(r => console.log(r))
         }
     }, [])
 
@@ -103,13 +103,13 @@ const DashboardPage: React.FC = () => {
     return (
         <div className="Page-container">
             <div className="Page-panel">
-                <h1 id="dashboard-h1">{user ? `Welcome, ${user.name} ${user.surname}` : "Hello, User!"}</h1>
+                <h1 id="dashboard-h1">{user ? `Witaj, ${user.name} ${user.surname} !` : "Witaj, pracowniku!"}</h1>
                 <div className="Dashboard-container">
                     <div className="Kanban-container">
-                        <h2>Kanban</h2>
+                        <h2>Statusy zadań</h2>
                         <div className="kanban-board">
                             <div className="kanban-column">
-                                <h3>To Do</h3>
+                                <h3>Do zrobienia</h3>
                                 {tasksByStatus.todo.map(task => (
                                     <div key={task._id} className={getTaskClasses(task)}>
                                         {task.name}
@@ -117,7 +117,7 @@ const DashboardPage: React.FC = () => {
                                 ))}
                             </div>
                             <div className="kanban-column">
-                                <h3>In Progress</h3>
+                                <h3>W trakcie</h3>
                                 {tasksByStatus.inProgress.map(task => (
                                     <div key={task._id} className={getTaskClasses(task)}>
                                         {task.name}
@@ -125,7 +125,7 @@ const DashboardPage: React.FC = () => {
                                 ))}
                             </div>
                             <div className="kanban-column">
-                                <h3>Done</h3>
+                                <h3>Zakończone</h3>
                                 {tasksByStatus.done.map(task => (
                                     <div key={task._id} className={getTaskClasses(task)}>
                                         {task.name}
@@ -136,25 +136,30 @@ const DashboardPage: React.FC = () => {
                     </div>
                     <div className="Dashboard-columns">
                         <div className="Dashboard-column">
-                            <h2>Your Comments:</h2>
+                            <h2>Twoje komentarze</h2>
                             <ul>
                                 {comments.map(comment => (
-                                    <li key={comment._id}>{comment.text} (Task: {comment.task?.name})</li>
+                                    <li key={comment._id} className="comment-item">
+                                        {comment.text}
+                                        <span style={{ color: "#808080"}}>
+                                            Zadanie: {comment.task?.name}
+                                        </span>
+                                    </li>
                                 ))}
                             </ul>
                         </div>
                         <div className="Dashboard-column">
-                            <h2>Your Projects:</h2>
+                            <h2>Twoje projekty</h2>
                             <ul>
                                 {projects.map(project => (
-                                    <li key={project._id}>{project.name}</li>
+                                    <li key={project._id} className="comment-item">{project.name}</li>
                                 ))}
                             </ul>
                         </div>
                         <div className="Dashboard-column">
-                            <h2>Your Team:</h2>
+                            <h2>Twój zespół</h2>
                             <ul>
-                                <li>{team ? team.name : "No team assigned"}</li>
+                                <li className="comment-item">{team ? team.name : "Downa"}</li>
                             </ul>
                         </div>
                     </div>
@@ -164,4 +169,4 @@ const DashboardPage: React.FC = () => {
     )
 }
 
-export default DashboardPage
+export default DashboardPage;

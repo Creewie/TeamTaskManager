@@ -48,6 +48,48 @@ body {
 /* --------------------------------------------------
   Linki i przyciski
 -------------------------------------------------- */
+.comment-item {
+  display: flex;
+  align-items: center;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  gap: 5px;
+}
+.task-name-container {
+  position: relative;
+  cursor: help; /* Pokazuje ikonę pomocy */
+}
+.no-data {
+  color: var(--gray);
+  font-style: italic;
+  text-align: center;
+  margin: 10px 0;
+}
+.tooltip {
+  visibility: hidden;
+  width: 300px;
+  background-color: var(--third);
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 100;
+  bottom: 125%; /* powyżej elementu */
+  left: 50%;
+  margin-left: -150px; /* wyśrodkowanie */
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  white-space: normal; /* tekst może przechodzić na nową linię */
+}
+
+.task-name-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
 
 a {
   color: var(--link);
@@ -76,7 +118,7 @@ button {
 button:hover {
   background: var(--fifth);
   color: var(--white);
-  box-shadow: var(--sixth) 0 0 5px;
+  box-shadow: none;
 }
 
 /* --------------------------------------------------
@@ -101,6 +143,29 @@ textarea::placeholder {
   color: var(--gray);
 }
 
+.status-select {
+  width: auto;
+  margin: 10px;
+  text-align: center;
+  min-width: 100px;
+  max-width: 150px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sixth);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.status-select::-ms-expand {
+  display: none;
+}
+.status-select:hover {
+  background-color: var(--fifth);
+}
+.status-select option {
+  text-align: center;
+}
 /* --------------------------------------------------
   Nagłówki i paragrafy
 -------------------------------------------------- */
@@ -276,7 +341,8 @@ li h5 {
 .add-button:hover {
   background-color: var(--fifth);
   transform: scale(1.05);
-  box-shadow: var(--sixth) 0 0 5px;
+  box-shadow: none;
+  border: none;
 }
 
 /* --------------------------------------------------
@@ -439,4 +505,31 @@ li h5 {
 
 .modal-buttons button {
   flex: 1;
+}
+/* Okienko pozytywnego alertu */
+.success-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.success-modal-content {
+  background-color: var(--third);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px var(--sixth);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }

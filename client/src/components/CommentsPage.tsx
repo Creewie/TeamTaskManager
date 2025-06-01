@@ -65,9 +65,9 @@ const CommentsPage: React.FC = () => {
         <div className="Page-container">
             <div className="Page-panel">
                 <div className="Page-header">
-                    <h1>Comments</h1>
+                    <h1>Komentarze do zadań</h1>
                     <Link to={"/comments/new"}>
-                        <button className={"add-button"}>Add new</button>
+                        <button className={"add-button"}>Dodaj nowy komentarz</button>
                     </Link>
                 </div>
 
@@ -80,9 +80,8 @@ const CommentsPage: React.FC = () => {
                             <div className="list-actions">
                                 <button
                                     onClick={() => handleDelete(comment._id)}
-                                    className="delete-button"
-                                >
-                                    Delete
+                                    className="delete-button">
+                                    Usuń
                                 </button>
                             </div>
                         </li>

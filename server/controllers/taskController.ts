@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as taskService from '../services/taskService';
+import TaskModel from "../models/task";
 
 export const createTaskHandler = async (req: Request, res: Response) => {
     try{
@@ -46,6 +47,24 @@ export const updateTaskHandler = async (req: Request<{id: string}>, res: Respons
     }
     catch(err){
         res.status(500).json(err)
+    }
+}
+
+export const updateTaskStatus = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params
+        const { status } = req.body
+
+        const updatedTask = await TaskModel.findByIdAndUpdate(
+            id,
+            { status },
+            { new: true }
+        )
+
+        res.json(updatedTask)
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ message: "Błąd serwera" })
     }
 }
 

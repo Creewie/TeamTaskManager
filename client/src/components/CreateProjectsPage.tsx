@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react"
 import '../styles/App.css'
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
+import SuccessModal from "./SuccessModal";
 
 const CreateProjectsPage : React.FC = () => {
     const [name, setName] = useState('')
@@ -8,6 +10,9 @@ const CreateProjectsPage : React.FC = () => {
     const [team, setTeam] = useState('')
     const [members, setMembers] = useState<string[]>([])
     const [teamMembers, setTeamMembers] = useState<any[]>([])
+    const [showSuccess, setShowSuccess] = useState(false)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchTeam = async () => {
@@ -35,25 +40,29 @@ const CreateProjectsPage : React.FC = () => {
             members
         })
 
-        console.log('Project created!')
+        setShowSuccess(true)
+        setTimeout(() => {
+            setShowSuccess(false)
+            navigate('/projects')
+        }, 2000)
     }
 
     return (
         <div className={"Page-container"}>
             <div className={"Page-panel"}>
                 <div className="Auth-container">
-                    <h1>Project creation</h1>
+                    <h1>Tworzenie projektu</h1>
                     <form onSubmit={handleSubmit}>
                         <input
                             value={name}
                             onChange={e => setName(e.target.value)}
-                            placeholder="Project name"
+                            placeholder="Nazwa projektu"
                             required
                         />
                         <textarea
                             value={description}
                             onChange={e => setDescription(e.target.value)}
-                            placeholder="Description"
+                            placeholder="Opis"
                             required
                         />
                         <select
@@ -71,10 +80,15 @@ const CreateProjectsPage : React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        <button type="submit">Create Project</button>
+                        <button type="submit">Stwórz projekt</button>
                     </form>
                 </div>
             </div>
+            <SuccessModal
+                show={showSuccess}
+                message="Projekt został stworzony!"
+                onClose={() => setShowSuccess(false)}
+            />
         </div>
     )
 }

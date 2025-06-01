@@ -1,20 +1,30 @@
-import React, {useEffect, useState} from "react"
-import '../styles/App.css'
+import React, { useEffect, useState } from "react"
+import "../styles/App.css"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
+import SuccessModal from "./SuccessModal"
 
-const CreateTasksPage : React.FC = () => {
+const CreateTasksPage: React.FC = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [project, setProject] = useState('')
     const [projects, setProjects] = useState<any[]>([])
     const [priority, setPriority] = useState<'Low' | 'Medium' | 'High'>('Low')
     const [status, setStatus] = useState<'To do' | 'In progress' | 'Done'>('To do')
+    const [showSuccess, setShowSuccess] = useState(false)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProjects = async () => {
-            const res = await axios.get('http://localhost:5000/api/projects')
-            setProjects(res.data)
+            try {
+                const res = await axios.get('http://localhost:5000/api/projects')
+                setProjects(res.data)
+            } catch (err) {
+                console.error("Błąd przy pobieraniu projektów:", err)
+            }
         }
+
         fetchProjects()
     }, [])
 
@@ -30,12 +40,10 @@ const CreateTasksPage : React.FC = () => {
 
         try {
             const payload = JSON.parse(atob(token.split('.')[1]))
-            console.log('JWT Payload:', payload)
-
             const userId = payload.id || payload._id || payload.userId
 
             if (!userId || typeof userId !== 'string') {
-                alert('Wrong User ID in Token')
+                alert('Nieprawidłowe ID użytkownika')
                 return
             }
 
@@ -48,41 +56,76 @@ const CreateTasksPage : React.FC = () => {
                 status,
             })
 
-            console.log('Task created!')
+            setShowSuccess(true)
+
+            setTimeout(() => {
+                setShowSuccess(false)
+                navigate('/tasks')
+            }, 2000)
 
         } catch (err) {
-            console.error('Error creating task:', err)
-            alert('Error creating task:')
+            console.error('Błąd przy tworzeniu zadania:', err)
+            alert('Nie udało się utworzyć zadania')
         }
     }
 
-    return(
-        <div className={"Page-container"}>
-            <div className={"Page-panel"}>
+    return (
+        <div className="Page-container">
+            <div className="Page-panel">
                 <div className="Auth-container">
-                    <h1>Task creation</h1>
+                    <h1>Tworzenie zadania</h1>
                     <form onSubmit={handleSubmit}>
-                        <input value={name} onChange={e => setName(e.target.value)} placeholder="Task name" required/>
-                        <textarea value={description} onChange={e => setDescription(e.target.value)}
-                                  placeholder="Description" required/>
-                        <select value={project} onChange={e => setProject(e.target.value)} required>
-                            <option value="">Select project</option>
-                            {projects.map(p => <option key={p._id} value={p._id}>{p.name}</option>)}
+                        <input
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            placeholder="Nazwa zadania"
+                            required
+                        />
+                        <textarea
+                            value={description}
+                            onChange={e => setDescription(e.target.value)}
+                            placeholder="Opis"
+                            required
+                        />
+                        <select
+                            value={project}
+                            onChange={e => setProject(e.target.value)}
+                            required
+                        >
+                            <option value="">Zaznacz projekt</option>
+                            {projects.map(p => (
+                                <option key={p._id} value={p._id}>
+                                    {p.name}
+                                </option>
+                            ))}
                         </select>
-                        <select value={priority} onChange={e => setPriority(e.target.value as any)}>
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
-                            <option value="High">High</option>
+                        <select
+                            value={priority}
+                            onChange={e => setPriority(e.target.value as any)}
+                        >
+                            <option value="Low">Niski priorytet</option>
+                            <option value="Medium">Średni priorytet</option>
+                            <option value="High">Wysoki priorytet</option>
                         </select>
-                        <select value={status} onChange={e => setStatus(e.target.value as any)}>
-                            <option value="To do">To do</option>
-                            <option value="In progress">In progress</option>
-                            <option value="Done">Done</option>
+                        <select
+                            value={status}
+                            onChange={e => setStatus(e.target.value as any)}
+                        >
+                            <option value="To do">Do zrobienia</option>
+                            <option value="In progress">W trakcie</option>
+                            <option value="Done">Zakończone</option>
                         </select>
-                        <button type="submit">Create Task</button>
+                        <button type="submit">Stwórz</button>
                     </form>
                 </div>
             </div>
+
+            {/* Okienenko sukcesu */}
+            <SuccessModal
+                show={showSuccess}
+                message="Zadanie zostało dodane!"
+                onClose={() => setShowSuccess(false)}
+            />
         </div>
     )
 }

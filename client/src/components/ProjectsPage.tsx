@@ -7,6 +7,7 @@ import ConfirmModal from "./ConfirmModal"
 interface Project {
     _id: string
     name: string
+    description: string
     team: { name: string }
 }
 
@@ -61,23 +62,25 @@ const ProjectsPage: React.FC = () => {
         <div className="Page-container">
             <div className="Page-panel">
                 <div className="Page-header">
-                    <h1>Projects</h1>
+                    <h1>Projekty</h1>
                     <Link to={"/projects/new"}>
-                        <button className={"add-button"}>Add new</button>
+                        <button className={"add-button"}>Stwórz nowy</button>
                     </Link>
                 </div>
 
                 <ul>
                     {projects.map((project) => (
                         <li key={project._id}>
-                            <h6>{project.name}</h6>
-                            <h5>Team: {project.team?.name || "Brak zespołu"}</h5>
+                            <h6 className="task-name-container">
+                                {project.name}
+                                <span className="tooltip">{project.description}</span>
+                            </h6>
+                            <h5>Zespół: {project.team?.name || "Downa"}</h5>
                             <div className="list-actions">
                                 <button
                                     onClick={() => handleDeleteClick(project._id)}
-                                    className="delete-button"
-                                >
-                                    Delete
+                                    className="delete-button">
+                                    Usuń
                                 </button>
                             </div>
                         </li>

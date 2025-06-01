@@ -7,13 +7,14 @@ import ConfirmModal from "./ConfirmModal"
 interface Team {
     _id: string
     name: string
-    members: { name: string; surname: string }[]
+    members: { _id: string; name: string; surname: string }[]
 }
 
 const TeamsPage: React.FC = () => {
     const [teams, setTeams] = useState<Team[]>([])
     const [showModal, setShowModal] = useState(false)
     const [selectedId, setSelectedId] = useState<string | null>(null)
+    const [, setShowTooltipId] = useState<string | null>(null)
 
     useEffect(() => {
         const fetchTeams = async () => {
@@ -64,9 +65,9 @@ const TeamsPage: React.FC = () => {
         <div className="Page-container">
             <div className="Page-panel">
                 <div className="Page-header">
-                    <h1>Teams</h1>
+                    <h1>Zespoły</h1>
                     <Link to={"/teams/new"}>
-                        <button className={"add-button"}>Add new</button>
+                        <button className={"add-button"}>Stwórz nowy</button>
                     </Link>
                 </div>
 
@@ -74,13 +75,38 @@ const TeamsPage: React.FC = () => {
                     {teams.map((team) => (
                         <li key={team._id}>
                             <h6>{team.name}</h6>
-                            <h5>Liczba członków: {team.members.length}</h5>
+
+                            {/* Tooltip z członkami */}
+                            <div className="task-name-container">
+                                <h5
+                                    style={{ cursor: "help" }}
+                                    onMouseEnter={() => setShowTooltipId(team._id)}
+                                    onMouseLeave={() => setShowTooltipId(null)}
+                                >
+                                    Liczba członków: {team.members.length}
+                                </h5>
+
+                                <span className="tooltip">
+                    {team.members.length > 0 ? (
+                        <ul>
+                            {team.members.map((member) => (
+                                <li key={member._id}>
+                                    {member.name} {member.surname}
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        "Brak członków"
+                    )}
+                </span>
+                            </div>
+
                             <div className="list-actions">
                                 <button
                                     onClick={() => handleDelete(team._id)}
                                     className="delete-button"
                                 >
-                                    Delete
+                                    Usuń
                                 </button>
                             </div>
                         </li>

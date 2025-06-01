@@ -23,7 +23,7 @@ const UsersPage: React.FC = () => {
                 })
                 setUsers(response.data)
             } catch (error) {
-                console.error("Error fetching users:", error)
+                console.error("Błąd wczytując użytkowników: ", error)
             }
         }
 
@@ -34,13 +34,13 @@ const UsersPage: React.FC = () => {
         <div className="Page-container">
             <div className="Page-panel">
                 <div className="Page-header">
-                    <h1>Users</h1>
+                    <h1>Osoby</h1>
                 </div>
                 <ul>
                     {users.map((user) => (
                         <li key={user._id}>
                             <h6>{user.name} {user.surname}</h6>
-                            <h5>Team: {user.team?.name || "Jobless"}</h5>
+                            <h5>Zespół: {user.team?.name || "Jobless"}</h5>
                         </li>
                     ))}
                 </ul>

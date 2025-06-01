@@ -7,6 +7,7 @@ router.post('/', taskController.createTaskHandler)
 router.get('/', taskController.getAllTasksHandler)
 router.get('/:id', taskController.getTaskByIdHandler)
 router.put('/:id', taskController.updateTaskHandler)
+router.put("/:id/status", taskController.updateTaskStatus)
 router.delete('/:id', taskController.deleteTaskHandler)
 
 export default router

@@ -26,11 +26,11 @@ const LoginPage: React.FC = () => {
             
             navigate('/dashboard')
         } catch (err: any) {
-            console.error('Logging error', err.response?.data || err.message)
+            console.error('Problem z logowaniem', err.response?.data || err.message)
             if (err.response && err.response.data && err.response.data.message) {
                 setError(err.response.data.message)
             } else {
-                setError('Error while logging in')
+                setError('Błąd w trakcie logowania')
             }
         }
     }
@@ -50,15 +50,15 @@ const LoginPage: React.FC = () => {
                 <input
                     id={"loginPage-password"}
                     type={"password"}
-                    placeholder={"Password"}
+                    placeholder={"Hasło"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button id={"loginPage-submit"} type={"submit"}>Login</button>
+                <button id={"loginPage-submit"} type={"submit"}>Zaloguj</button>
             </form>
             {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
-            <p>No account? No problem! Register <Link to={"/register"}>here</Link></p>
+            <p>Nie masz konta? Założ je <Link to={"/register"}>tutaj</Link></p>
         </div>
     )
 }

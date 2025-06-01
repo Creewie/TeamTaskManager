@@ -15,21 +15,18 @@ const NavBar: React.FC = () => {
         <nav className={"NavBar-container"}>
             <nav className={"NavBar-panel"}>
                 <h1>Mrugacz Project</h1>
-                <Link to='/dashboard'>My dashboard</Link>
-                <Link to='/teams'>Teams</Link>
-                <Link to='/projects'>Projects</Link>
-                <Link to='/users'>Users</Link>
-                <Link to='/tasks'>Tasks</Link>
-                <Link to='/comments'>Comments</Link>
+                <Link to='/dashboard'>Dashboard</Link>
+                <Link to='/tasks'>Zadania</Link>
+                <Link to='/comments'>Komentarze</Link>
+                <Link to='/projects'>Projekty</Link>
+                <Link to='/teams'>Zespoły</Link>
+                <Link to='/users'>Osoby</Link>
 
-                <button
-                    onClick={handleLogout}
-                    style={{ margin: "50px", width: "150px"}}
-                >
-                    Log me out
+                <button onClick={handleLogout} style={{ margin: "50px", width: "150px"}}>
+                    Wyloguj
                 </button>
 
-                <a><Link to={"https://github.com/Creewie"}>by Creewie</Link></a>
+                <a>by <Link to={"https://github.com/Creewie"}>Creewie</Link> & <Link to={"https://github.com/Regizz"}>RegiZz</Link></a>
             </nav>
         </nav>
     )

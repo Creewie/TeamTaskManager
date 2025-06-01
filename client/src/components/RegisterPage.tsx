@@ -30,13 +30,13 @@ const RegisterPage : React.FC = () => {
                 navigate('/login')
             }, 2000)
         } catch (err: any) {
-            console.error('Registration error:', err.response?.data || err.message)
+            console.error('Błąd rejestracji:', err.response?.data || err.message)
             if (err.response && err.response.data && err.response.data.message) {
                 setError(err.response.data.message)
             } else if (err.response && err.response.data && err.response.data.errors) {
-                setError(err.response.data.errors[0].msg || 'Error occurred while registering page.')
+                setError(err.response.data.errors[0].msg || 'Bład przy tworzeniu konta')
             } else {
-                setError('Error occurred on registration.')
+                setError('Problem tworząc konto')
             }
         }
     }
@@ -48,7 +48,7 @@ const RegisterPage : React.FC = () => {
                 <input
                     id={"registerPage-name"}
                     type={"text"}
-                    placeholder={"Name"}
+                    placeholder={"Imię"}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -56,7 +56,7 @@ const RegisterPage : React.FC = () => {
                 <input
                     id={"registerPage-surname"}
                     type={"text"}
-                    placeholder={"Surname"}
+                    placeholder={"Nazwisko"}
                     value={surname}
                     onChange={(e) => setSurname(e.target.value)}
                     required
@@ -72,16 +72,16 @@ const RegisterPage : React.FC = () => {
                 <input
                     id={"registerPage-password"}
                     type={"password"}
-                    placeholder={"Password"}
+                    placeholder={"Hasło"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button id={"registerPage-submit"} type={"submit"}>Create</button>
+                <button id={"registerPage-submit"} type={"submit"}>Stwórz konto</button>
             </form>
             {error && <p className="error-message" style={{color: 'red'}}>{error}</p>}
             {success && <p className="success-message" style={{color: 'green'}}>{success}</p>}
-            <p>Already have an account? Go <Link to={"/login"}>here</Link></p>
+            <p>Masz już konto? Przejdź <Link to={"/login"}>tutaj</Link></p>
         </div>
     )
 }

@@ -7,8 +7,10 @@ import ConfirmModal from "./ConfirmModal"
 interface Task {
     _id: string
     name: string
+    description: string
     project: { name: string }
     user: { name: string; surname: string }
+    status: "To do" | "In progress" | "Done"
 }
 
 const TasksPage: React.FC = () => {
@@ -16,6 +18,7 @@ const TasksPage: React.FC = () => {
     const [showModal, setShowModal] = useState(false)
     const [selectedId, setSelectedId] = useState<string | null>(null)
 
+    // Pobierz zadania
     useEffect(() => {
         const fetchTasks = async () => {
             try {
@@ -32,6 +35,7 @@ const TasksPage: React.FC = () => {
         fetchTasks()
     }, [])
 
+    // Usuwanie zadania
     const handleDelete = (taskId: string) => {
         setSelectedId(taskId)
         setShowModal(true)
@@ -61,32 +65,73 @@ const TasksPage: React.FC = () => {
         setSelectedId(null)
     }
 
+    // Zmiana statusu zadania
+    const handleStatusChange = async (taskId: string, newStatus: Task["status"]) => {
+        try {
+            const token = localStorage.getItem("jwtToken")
+            await axios.put(
+                `http://localhost:5000/api/tasks/${taskId}/status`,
+                { status: newStatus },
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            )
+
+            setTasks(prev =>
+                prev.map(task =>
+                    task._id === taskId ? { ...task, status: newStatus } : task
+                )
+            )
+
+        } catch (err) {
+            alert("Nie udało się zmienić statusu zadania.")
+            console.error("Błąd zmiany statusu:", err)
+        }
+    }
+
     return (
         <div className="Page-container">
             <div className="Page-panel">
                 <div className="Page-header">
-                    <h1>Tasks</h1>
+                    <h1>Zadania</h1>
                     <Link to={"/tasks/new"}>
-                        <button className={"add-button"}>Add new</button>
+                        <button className={"add-button"}>Dodaj nowe</button>
                     </Link>
                 </div>
 
                 <ul>
-                    {tasks.map((task) => (
-                        <li key={task._id}>
-                            <h6>{task.name}</h6>
-                            <h5>Project: {task.project?.name}</h5>
-                            <h5>User: {task.user?.name} {task.user?.surname}</h5>
-                            <div className="list-actions">
-                                <button
-                                    onClick={() => handleDelete(task._id)}
-                                    className="delete-button"
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </li>
-                    ))}
+                    {tasks.length > 0 ? (
+                        tasks.map((task) => (
+                            <li key={task._id}>
+                                <h6>{task.name}</h6>
+                                <h5>Projekt: {task.project?.name || "Brak projektu"}</h5>
+                                <h5>Osoba: {task.user?.name} {task.user?.surname}</h5>
+                                <h5>Status:
+                                    <select
+                                        value={task.status}
+                                        onChange={(e) =>
+                                            handleStatusChange(task._id, e.target.value as Task["status"])
+                                        }
+                                        className="status-select"
+                                    >
+                                        <option value="To do">Do wykonania</option>
+                                        <option value="In progress">W trakcie</option>
+                                        <option value="Done">Zakończone</option>
+                                    </select>
+                                </h5>
+                                <div className="list-actions">
+                                    <button
+                                        onClick={() => handleDelete(task._id)}
+                                        className="delete-button"
+                                    >
+                                        Usuń
+                                    </button>
+                                </div>
+                            </li>
+                        ))
+                    ) : (
+                        <p className="no-data">Brak zadań</p>
+                    )}
                 </ul>
 
                 <ConfirmModal
