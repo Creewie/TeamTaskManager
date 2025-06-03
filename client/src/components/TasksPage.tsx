@@ -103,7 +103,12 @@ const TasksPage: React.FC = () => {
                     {tasks.length > 0 ? (
                         tasks.map((task) => (
                             <li key={task._id}>
-                                <h6>{task.name}</h6>
+                                {/* Tooltip z opisem */}
+                                <h6 className="task-name-container">
+                                    {task.name}
+                                    <span className="tooltip">{task.description}</span>
+                                </h6>
+
                                 <h5>Projekt: {task.project?.name || "Brak projektu"}</h5>
                                 <h5>Osoba: {task.user?.name} {task.user?.surname}</h5>
                                 <h5>Status:
